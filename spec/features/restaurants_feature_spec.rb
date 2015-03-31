@@ -10,4 +10,16 @@ feature 'restaurants' do
     end
   
   end
+
+  context 'restaurants have been added' do
+    before do
+      Restaurant.create(name: 'KFC')
+    end
+
+    scenario 'display restaurants' do
+      visit '/restaurants'
+      expect(page).not_to have_content 'No restaurants added yet'
+      expect(page).to have_content 'KFC'
+    end
+  end
 end
