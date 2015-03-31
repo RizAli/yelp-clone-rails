@@ -3,3 +3,10 @@ require 'rails_helper'
 # RSpec.describe Restaurant, type: :model do
 #   pending "add some examples to (or delete) #{__FILE__}"
 # end
+
+describe Restaurant, :type => :model do
+  it 'is not valid with a name of less than three characters' do
+    restaurant = Restaurant.new(name: "kf")
+    expect(restaurant).not_to be_valid
+  end
+end
