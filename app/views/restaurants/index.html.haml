@@ -3,6 +3,14 @@
     %section
       %h1
         = link_to restaurant.name, restaurant_path(restaurant)
+      - if restaurant.reviews.any?
+        %ul
+          - restaurant.reviews.each do |review|
+            %li
+              = review.thoughts
+              %strong= "#{review.rating} out of 5"
+      - else
+        %p No reviews yet - click below to add one.
       %p
         = link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant)
       %p
