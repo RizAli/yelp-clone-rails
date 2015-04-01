@@ -30,6 +30,7 @@ class RestaurantsController < ApplicationController
   def destroy
     @restaurant = restaurant_selector
     @restaurant.delete
+    flash[:notice] = "Restaurant deleted successfully"
     redirect_to '/restaurants'
   end
 
