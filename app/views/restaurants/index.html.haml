@@ -4,6 +4,8 @@
       %h1
         = link_to restaurant.name, restaurant_path(restaurant)
       %p
+        = link_to "Review #{restaurant.name}", new_restaurant_review_path(restaurant)
+      %p
         = link_to "Edit #{restaurant.name}", edit_restaurant_path(restaurant)
         = link_to "Delete #{restaurant.name}", restaurant_path(restaurant), method: :delete
 - else
