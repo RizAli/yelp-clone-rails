@@ -42,7 +42,7 @@ feature 'restaurants' do
       visit '/restaurants'
       click_link 'Patty and Bun'
       expect(page).to have_content 'Patty and Bun'
-      expect(current_path).to eq '/restaurants/#{patty_and_bun.id}'
+      expect(current_path).to eq "/restaurants/#{patty_and_bun.id}"
     end
   end
 end
