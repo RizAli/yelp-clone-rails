@@ -13,6 +13,9 @@ class RestaurantsController < ApplicationController
     redirect_to '/restaurants'
   end
 
+  def show
+  end
+
   #### Helper methods
 
   def restaurant_params

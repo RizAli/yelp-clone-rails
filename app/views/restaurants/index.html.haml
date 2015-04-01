@@ -1,6 +1,7 @@
 - if @restaurants.any?
   - @restaurants.each do |restaurant|
-    %p= restaurant.name
+    %p
+      = link_to restaurant.name, restaurant_path(restaurant)
 - else
   %p No restaurants added yet
 
