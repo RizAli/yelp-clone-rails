@@ -22,4 +22,15 @@ feature 'restaurants' do
       expect(page).to have_content 'KFC'
     end
   end
+
+  context 'creating restaurants' do
+    scenario 'prompts user to fill out a form, then displays the new restaurant' do
+      visit '/restaurants'
+      click_link 'Add a new restaurant'
+      fill_in 'Name', with: 'Patty and Bun'
+      click_button 'Create Restaurant'
+      expect(current_path).to eq '/restaurants'
+      expect(page).to have_content 'Patty and Bun'
+    end
+  end
 end
