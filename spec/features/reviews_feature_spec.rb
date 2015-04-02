@@ -11,5 +11,5 @@ feature 'reviews' do
     click_button 'Leave Review'
     expect(current_path).to eq '/restaurants'
     expect(page).to have_content('Choked on some gristle...')
-  end 
+  end
 end
