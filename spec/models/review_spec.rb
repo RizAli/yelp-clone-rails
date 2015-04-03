@@ -16,4 +16,9 @@ RSpec.describe Review, type: :model do
     expect(@all_reviews).not_to include "Nice food"
   end
 
+  it "is invalid if the rating is greater than 5" do
+    review = Review.new(rating: 6)
+    expect(review).to have(1).error_on(:rating)
+  end
+
 end
