@@ -6,4 +6,11 @@ RSpec.describe Restaurant, type: :model do
     expect(restaurant).not_to be_valid
     expect(restaurant).to have(1).error_on(:name)
   end
+
+  it 'is not valid if it already exists in the database' do
+    Restaurant.create(name: 'KFC')
+    restaurant = Restaurant.new(name: 'KFC')
+    expect(restaurant).not_to be_valid
+    expect(restaurant).to have(1).error_on(:name)
+  end
 end

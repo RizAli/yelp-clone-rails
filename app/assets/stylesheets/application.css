@@ -18,3 +18,7 @@ body {
   font-family: Helvetica, sans-serif;
   padding: 20px;
 }
+
+.field_with_errors input {
+  border: solid red 1px;
+}
