@@ -24,7 +24,16 @@ feature 'restaurants' do
   end
 
   context 'creating restaurants' do
+
+    scenario 'a user must be logged in to create a restaurant' do
+      visit '/restaurants'
+      click_link 'Add a new restaurant'
+      expect(current_path).to eq '/users/sign_in'
+      expect(page).to have_content 'Sign in with Facebook'
+    end
+
     scenario 'prompts user to fill out a form, then displays the new restaurant' do
+      sign_up
       visit '/restaurants'
       click_link 'Add a new restaurant'
       fill_in 'Name', with: 'Patty and Bun'
@@ -35,6 +44,7 @@ feature 'restaurants' do
 
     context 'an invalid restaurant' do
       it 'does not let you submit a name that is too short' do
+        sign_up
         visit '/restaurants'
         click_link 'Add a new restaurant'
         fill_in 'Name', with: 'A'
@@ -61,7 +71,8 @@ feature 'restaurants' do
   context 'editing restaurants' do
     before {Restaurant.create name: 'KFC'}
 
-    scenario 'let a user edit a restaurant' do
+    scenario 'lets a user edit a restaurant' do
+      sign_up
       visit '/restaurants'
       click_link 'Edit KFC'
       fill_in 'Name', with: 'Kentucky Fried Chicken'
@@ -75,6 +86,7 @@ feature 'restaurants' do
     before {Restaurant.create name: 'Beigel Bake'}
 
     scenario 'removes a restaurant when a user clicks a delete link' do
+      sign_up
       visit '/restaurants'
       click_link 'Delete Beigel Bake'
       expect(current_path).to eq '/restaurants'
@@ -82,4 +94,14 @@ feature 'restaurants' do
       expect(page).to have_content 'Restaurant deleted successfully'
     end
   end
+end
+
+#### Helper methods
+
+def sign_up
+  visit '/users/sign_up'
+  fill_in 'Email', with: 'test@example.com'
+  fill_in 'Password', with: 'testtest'
+  fill_in 'Password confirmation', with: 'testtest'
+  click_button 'Sign up'
 end
