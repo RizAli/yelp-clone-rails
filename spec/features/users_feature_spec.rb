@@ -34,4 +34,25 @@ context "user signed in on the homepage" do
     expect(page).not_to have_link('Sign in')
     expect(page).not_to have_link('Sign up')
   end
+
+  it "can only leave one review per restaurant" do
+    leave_kfc_review
+    visit '/restaurants'
+    click_link 'Review KFC'
+    expect(page).to have_content "You've already reviewed KFC"
+  end
+end
+
+
+#### Helper methods
+
+def leave_kfc_review
+  Restaurant.create name: 'KFC'
+  visit '/restaurants'
+  click_link 'Review KFC'
+  fill_in "Thoughts", with: "Choked on some gristle..."
+  select '3', from: 'Rating'
+  click_button 'Leave Review'
+  expect(current_path).to eq '/restaurants'
+  expect(page).to have_content('Choked on some gristle...')
 end
