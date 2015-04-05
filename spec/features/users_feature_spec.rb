@@ -44,6 +44,20 @@ context "user signed in on the homepage" do
     click_button 'Leave Review'
     expect(page).to have_content "You can only write one review per restaurant"
   end
+
+  context "editing and deleting restaurants" do
+    it "can't edit or delete restaurants they didn't create" do
+      leave_kfc_review
+      click_link 'Sign out'
+      click_link('Sign up')
+      fill_in('Email', with: 'test2@example.com')
+      fill_in('Password', with: 'testtest')
+      fill_in('Password confirmation', with: 'testtest')
+      click_button('Sign up')
+      expect(page).not_to have_content "Edit KFC"
+      expect(page).not_to have_content "Delete KFC"
+    end
+  end
 end
 
 
